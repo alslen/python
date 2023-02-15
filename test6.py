@@ -9,7 +9,7 @@ print(script101[:100]) # 100글자를 출력해줌
 # Monica: 대사 3개 출력
 lines = re.findall(r'Monica:.+', script101)  # findall은 리스트 객체로 반환해줌
 print(lines[:3]) # Monica의 3개의 대사가 보이게 만들기 위해 사용
-print(type(lines))
+print(type(lines)) # type() : 자료구조의 유형
 
 # All : 대사 출력
 all = re.findall(r'All:.+', script101) # All:로 시작하는 모든 대사를 추출해줌.
@@ -29,7 +29,7 @@ a = [1,2,3,4,5,2,2]
 print(a)
 print(set(a)) # set : 중복을 허용하지 않음
 
-# 등장인물 출력, 중복 허용x
+# 등장인물 출력, set : 중복 허용x
 print(set(re.findall(patt, script101)))
 y = set(re.findall(patt, script101))
 print(type(y))
@@ -75,7 +75,43 @@ txt1 = re.findall(r'\([A-Za-z].+[a-z|\.]\)', script101)[:6]
 print(">> txt1 : ", txt1)
 print(">> txt1 길이 : ", len(txt1))
 
-# ?는 근처에 있는 ()를 찾아줌
+# ?는 근처에 있는 )를 찾아줌
 txt2 = re.findall(r'\([A-Za-z].+?[a-z|\.]\)', script101)
 print(">> txt2 : ", txt2)
 print(">> txt2 길이 : ", len(txt2))
+#########################################
+
+# sub 이용해서 :(콜론) 제거
+ch = 'Scene:'
+ch = re.sub(":","", ch)
+print(ch)
+
+###########################################
+
+a = '제 이메일 주소는 greate@naver.com'
+a += ' 오늘은 today@naver.com 내일은 apple@gmail.com life@abc.co.kr 라는 메일을 사용합니다.'
+print(a)
+# 메일 주소만 출력
+a1 = re.findall(r'[a-z]+@[a-z.]+',a)
+print('메일주소 : ', a1)
+
+words = ['apple', 'cat', 'brave', 'drama', 'asise', 'blow', 'coat', 'above']
+# a로 시작하는 단어 출력
+mm = []
+for i in words:
+    mm += re.findall(r'a[a-z]+', i)  # findall은 중간에 있는 a도 찾아줌
+print('a로 시작하는 단어 : ', mm)
+print()
+
+for i in words:
+    m = re.search(r'a[a-z]+', i)  # search도 중간에 있는 a값도 찾아서 출력해줌
+    if m:
+        print(m.group())
+#print('search : ', m)
+
+for i in words:
+    # \d : 숫자 \D : 숫자가 아닌 것이 올때 사용
+    m = re.match(r'a\D+', i)  # match는 첫단어가 a인 단어를 찾아줌(group을 사용하지 않으면 객체 값이 반환됨)
+    if m:
+        print("match : ", m.group())
+# print('match : ', m)
